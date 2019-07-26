@@ -3,3 +3,4 @@ module.exports = {
     '@vue/app'
   ]
 }
+// 框架的配置
