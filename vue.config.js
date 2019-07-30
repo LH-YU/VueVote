@@ -60,6 +60,24 @@ module.exports = {
     },
     // 所有 webpack-dev-server 的选项都支持
     // devServer: {},
+    devServer: {
+        open: process.platform === 'darwin',
+        host: '10.112.113.143',
+        port: 8080,
+        https: false,
+        hotOnly: false,
+        proxy: {
+            '/api': {
+              target: 'http://10.112.124.114:8089',
+              ws: true,
+              changeOrigin:true,//允许跨域
+              pathRewrite: {
+                '^/api': '/'
+              }
+            }, // 设置代理
+        },
+        before: app => {}
+       },
     // // 是否为 Babel 或 TypeScript 使用 thread-loader
     // parallel: require('os').cpus().length > 1,
     // // 向 PWA 插件传递选项
