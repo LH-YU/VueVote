@@ -26,7 +26,7 @@
           {{item.playName}}
           <span style="margin-left:10px">{{item.voteNum}}</span>
         </h3>
-        <div class="vote" @click="vote(item.id)" v-if="!item.isVote">投票</div>
+        <div class="vote" @click="vote(item.id)" v-if="!item.idVote">投票</div>
         <div class="vote"  v-else>已投票</div>
       </div>
       <div>
@@ -82,7 +82,7 @@ export default {
     swiperSlide
   },
   mounted() {
-    this.isVote()
+    this.isVote()//获取cookie
     this.getList();
   },
   methods: {
@@ -112,7 +112,7 @@ export default {
     //投票
     vote(id) {
       this.$axios
-        .post("/vote/userVoteVo", {
+        .post("/vote/vote", {
           playerId: id,
           userName: this.cookieVote,
         })
