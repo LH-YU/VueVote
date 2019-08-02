@@ -14,7 +14,7 @@
       <div>
         <span
           class="ins"
-        >瓦房店华太百樂健身“巴西柔术达人”投票活动开始啦，为您支持的选手投上宝贵的一票吧！第一名将获得价值860元的格雷西巴哈战队道服一套！活动截止至8月16日！</span>
+        >瓦房店华太百樂健身“巴西柔术达人”投票活动开始啦，为您支持的选手投上宝贵的一票吧！第一名将获得价值860元的格雷西巴哈战队道服一套！活动截止至8月20日！</span>
       </div>
       <br>
 
@@ -24,10 +24,10 @@
         <h3 style="text-align:left;display:flex;align-items:center">
           <span class="serialNumber">{{index+1}}</span>
           {{item.playName}}
-          <span style="margin-left:10px">{{item.voteNum}}</span>
+          <span style="margin-left:10px">{{item.voteNum}}票</span>
         </h3>
-        <div class="vote" @click="vote(item.id)" v-if="!item.idVote">投票</div>
-        <div class="vote"  v-else>已投票</div>
+        <div class="vote" @click="vote(item.id)" v-if="!item.isVote">投票</div>
+        <div class="vote" style="background:#acacac;border-color:#acacac"  v-else>已投票</div>
       </div>
       <div>
         <!-- <h3 class="h">活动说明</h3> -->
@@ -43,6 +43,7 @@
 <script>
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 import moment from "moment"
+import { Toast } from 'mint-ui';
 export default {
   name: "slider",
   props: {
@@ -119,6 +120,9 @@ export default {
         .then(res => {
           if (res.code == 0) {
             this.getList();
+          }else if (res.code==100001) {
+            console.log("提示")
+            Toast('您今天已经投过了,请明天再来');
           }
         });
     },
